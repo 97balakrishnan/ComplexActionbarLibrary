@@ -37,7 +37,17 @@
 
     <!-- Include our custom Toolbar -->
     <include layout="@layout/toolbar" />
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ListView
+        android:paddingStart="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/options_list"
+        android:dividerHeight="0dp">
+    </ListView>
+    </FrameLayout>
     <!--
     </android.support.design.widget.CollapsingToolbarLayout>
     -->

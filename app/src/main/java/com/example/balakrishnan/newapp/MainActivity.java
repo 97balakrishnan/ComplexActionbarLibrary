@@ -13,10 +13,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AbsoluteLayout;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public ArrayList<String> arrayList=new ArrayList<>();
+    boolean isOptionsOpen=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,16 +31,33 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 //        getSupportActionBar().hide();
 
+
         ViewGroup inclusionViewGroup = (ViewGroup)findViewById(R.id.inclusion_layout);
-        View child = LayoutInflater.from(this).inflate(R.layout.toolbar,null);
+        View child = LayoutInflater.from(this).inflate(R.layout.appbar,null);
         inclusionViewGroup.addView(child);
+
+        final ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.list_view,arrayList);
+        ListView lv = (ListView)findViewById(R.id.options_list);
+        lv.setAdapter(adapter);
 
         ImageView img = findViewById(R.id.toolbar_logo);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                System.out.println("heelllo");
+                if(!isOptionsOpen) {
+                    arrayList.add("1");
+                    arrayList.add("2");
+                    arrayList.add("3");
+                    isOptionsOpen=true;
+                    adapter.notifyDataSetChanged();
+                    System.out.println("heelllo");
+                }
+                else
+                {
+                    isOptionsOpen=false;
+                    arrayList.clear();
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

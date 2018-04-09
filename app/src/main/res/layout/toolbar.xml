@@ -9,22 +9,33 @@
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:layout_scrollFlags="scroll|enterAlways"
     app:layout_collapseMode="pin"
+
     >
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <!-- This is a centered logo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="App title"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:gravity="center_horizontal"
+                />
         <ImageView
             android:id="@+id/toolbar_logo"
             android:src="@drawable/ic_action_name"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:layout_marginRight="?attr/actionBarSize"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            />
+            android:layout_gravity="center_horizontal"
 
+            />
+        </LinearLayout>
         <!-- This is a centered title -->
         <!--
         <TextView
@@ -66,5 +77,5 @@
             style="@style/Widget.AppCompat.ActionButton" />
             -->
 
-    </FrameLayout>
+
 </android.support.v7.widget.Toolbar>
