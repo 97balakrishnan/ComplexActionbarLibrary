@@ -17,49 +17,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.balakrishnan.complexactionbar.ComplexActionBar;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<String> arrayList=new ArrayList<>();
-    boolean isOptionsOpen=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 //        getSupportActionBar().hide();
 
 
-        ViewGroup inclusionViewGroup = (ViewGroup)findViewById(R.id.inclusion_layout);
-        View child = LayoutInflater.from(this).inflate(R.layout.appbar,null);
-        inclusionViewGroup.addView(child);
 
-        final ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.list_view,arrayList);
-        ListView lv = (ListView)findViewById(R.id.options_list);
-        lv.setAdapter(adapter);
-
-        ImageView img = findViewById(R.id.toolbar_logo);
-        img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!isOptionsOpen) {
-                    arrayList.add("1");
-                    arrayList.add("2");
-                    arrayList.add("3");
-                    isOptionsOpen=true;
-                    adapter.notifyDataSetChanged();
-                    System.out.println("heelllo");
-                }
-                else
-                {
-                    isOptionsOpen=false;
-                    arrayList.clear();
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+        ComplexActionBar c = new ComplexActionBar(getApplicationContext());
+       // c.setProperties(this,R.id.inclusion_layout,R.menu.menu_main);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        System.out.println("asdfkljasd");
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
