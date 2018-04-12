@@ -20,35 +20,40 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class ComplexActionBar extends FrameLayout {
 
     private ArrayList<String> arrayList=new ArrayList<>();
+    private OnItemClickListener onItemClickListener;
     private boolean isOptionsOpen=false;
-    /*public void setProperties(Activity activity,int inclusion_layout,int menu_id)
-    {
 
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
-        Context context = activity.getApplicationContext();
-        //((AppCompatActivity)activity).setSupportActionBar(toolbar);
-        ViewGroup inclusionViewGroup = (ViewGroup)activity.findViewById(inclusion_layout);
-        View child = LayoutInflater.from(context).inflate(R.layout.appbar,null);
-        inclusionViewGroup.addView(child);
-        //getMenuInflater().inflate(menu_id, toolbar.getMenu());
+    public OnItemClickListener getOnMenuItemClickListener() {
+        return onItemClickListener;
+    }
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
+    public interface OnItemClickListener{
 
+        public void onItemClicked(int position);
 
-
-    }*/
-
-
+    }
+    protected void itemClicked(int position){
+        if(onItemClickListener!=null){
+            onItemClickListener.onItemClicked(position);
+        }
+    }
     public ComplexActionBar(@NonNull Context context) {
         this(context,null);
     }
@@ -56,13 +61,12 @@ public class ComplexActionBar extends FrameLayout {
     public ComplexActionBar(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context,attrs,0);
     }
-
     public ComplexActionBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        final Context cont=context;
         addView(LayoutInflater.from(context).inflate(R.layout.appbar,this,false));
 
-
+        
         final ArrayAdapter adapter = new ArrayAdapter<String>(context,R.layout.list_view,arrayList);
         ListView lv = (ListView)findViewById(R.id.options_list);
         lv.setAdapter(adapter);
@@ -84,11 +88,27 @@ public class ComplexActionBar extends FrameLayout {
                     isOptionsOpen=false;
                     arrayList.clear();
                     adapter.notifyDataSetChanged();
+
                 }
             }
         });
 
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getContext(),position+"",Toast.LENGTH_SHORT).show();
+                itemClicked(position);
+            }
+        });
+
     }
+
+    public void inflateMenu(ArrayList<String> menuList)
+    {
+
+    }
+
 
     @Override
     public void setForegroundGravity(int foregroundGravity) {

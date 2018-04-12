@@ -12,17 +12,7 @@
       Make your toolbar expandable with CollapsingToolbarLayout
       Note that a centered ActionBar won't play nicely with the CollapsingToolbarLayout
     -->
-    <!--
-    <android.support.design.widget.CollapsingToolbarLayout
-        android:id="@+id/collapsing_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        android:fitsSystemWindows="true"
-        app:contentScrim="?attr/colorPrimary"
-        app:expandedTitleMarginStart="48dp"
-        app:expandedTitleMarginEnd="64dp">
-        -->
+
 
     <!-- Add a parallax background image if using CollapsingToolbarLayout -->
     <!--
@@ -41,16 +31,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
     <ListView
         android:paddingStart="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/options_list"
-        android:dividerHeight="0dp">
+        android:dividerHeight="0dp"
+        android:clickable="true"
+        android:focusable="true">
     </ListView>
     </FrameLayout>
-    <!--
-    </android.support.design.widget.CollapsingToolbarLayout>
-    -->
 
 </android.support.design.widget.AppBarLayout>

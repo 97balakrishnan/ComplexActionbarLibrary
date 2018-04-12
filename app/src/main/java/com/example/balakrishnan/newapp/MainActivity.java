@@ -8,14 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AbsoluteLayout;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.balakrishnan.complexactionbar.ComplexActionBar;
 
@@ -33,7 +36,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ComplexActionBar c = new ComplexActionBar(getApplicationContext());
+        final ComplexActionBar c = new ComplexActionBar(getApplicationContext());
+        c.setOnItemClickListener(new ComplexActionBar.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
+            }
+        });
+
        // c.setProperties(this,R.id.inclusion_layout,R.menu.menu_main);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
