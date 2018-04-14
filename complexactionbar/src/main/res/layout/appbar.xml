@@ -8,25 +8,6 @@
     android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
     android:fitsSystemWindows="true">
 
-    <!--
-      Make your toolbar expandable with CollapsingToolbarLayout
-      Note that a centered ActionBar won't play nicely with the CollapsingToolbarLayout
-    -->
-
-
-    <!-- Add a parallax background image if using CollapsingToolbarLayout -->
-    <!--
-    <ImageView
-        android:id="@+id/backdrop"
-        android:src="@drawable/backdrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:layout_collapseMode="parallax" />
-        -->
-
-    <!-- Include our custom Toolbar -->
-
     <include layout="@layout/toolbar" />
     <FrameLayout
         android:layout_width="match_parent"
@@ -37,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/options_list"
+        android:animateLayoutChanges="true"
         android:dividerHeight="0dp"
         android:clickable="true"
         android:focusable="true">

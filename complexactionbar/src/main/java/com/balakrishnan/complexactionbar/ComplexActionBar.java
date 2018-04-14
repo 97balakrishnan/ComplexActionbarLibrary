@@ -11,7 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,33 +58,59 @@ public class ComplexActionBar extends FrameLayout {
         //System.out.println("MenuList oda size:"+menuList.size());
         //adapter.notifyDataSetChanged();
     }
+
+    private int openHeight;
     private void setMenu()
     {
         System.out.println("This function is called");
         adapter = new ArrayAdapter<String>(context,R.layout.list_view,menuList);
         final ListView lv = activity.findViewById(R.id.options_list);
         lv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        lv.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+                v.animate().translationY(bottom).setDuration(500).start();
+                if(v.getHeight()!=0)
+                {
+                    if(openHeight==0)
+                    {
+                        lv.setVisibility(GONE);
+                    }
+                    openHeight=v.getHeight();
+                }
+            }
+        });
+        for(int i=0;i<arrayList.size();i++)
+        {
+            menuList.add(arrayList.get(i));
+        }
+
 
         ImageView img = activity.findViewById(R.id.toolbar_logo);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                View f =activity.findViewById(fragment);
+
                 if(!isOptionsOpen) {
                     isOptionsOpen=true;
-                    for(int i=0;i<arrayList.size();i++)
-                    {
-                        System.out.println(arrayList.get(i));
-                        menuList.add(arrayList.get(i));
-                    }
-                    adapter.notifyDataSetChanged();
+                    f.animate().translationY(openHeight).setDuration(500).start();
+                    lv.setVisibility(VISIBLE);
                 }
                 else
                 {
                     isOptionsOpen=false;
-                    menuList.clear();
+                    lv.setVisibility(GONE);
+                    f.animate().translationY(0).setDuration(500).start();
                     adapter.notifyDataSetChanged();
 
                 }
+
+
             }
         });
 
@@ -93,7 +123,7 @@ public class ComplexActionBar extends FrameLayout {
         this.context=context;
         addView(LayoutInflater.from(context).inflate(R.layout.appbar,this,false));
 
-
+        openHeight=0;
 
 
     }
@@ -161,5 +191,11 @@ public class ComplexActionBar extends FrameLayout {
     {
         ListView l =activity.findViewById(R.id.options_list);
         return l;
+    }
+    private int fragment;
+    public void setFragment(int fragment)
+    {
+        this.fragment=fragment;
+        System.out.println("fragment int "+fragment);
     }
 }

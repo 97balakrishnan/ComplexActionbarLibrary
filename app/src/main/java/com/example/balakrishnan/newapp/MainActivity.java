@@ -1,5 +1,6 @@
 package com.example.balakrishnan.newapp;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,8 +33,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         final ComplexActionBar c = new ComplexActionBar(getApplicationContext());
         c.setActivity(this);
+        c.setFragment(R.id.content_main);
+
+        android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.my_fragment,new FirstFragment());
+        ft.commit();
+
         String[] s={"first","second","third","fourth","fifth"};
         c.setMenuList(s);
         c.getMenu().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -41,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Toast.makeText(getApplicationContext(),"Item "+position+" was clicked",Toast.LENGTH_LONG).show();
+                switch(position)
+                {
+                    case 0:
+                        android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.my_fragment,new FirstFragment());
+                        ft.commit();
+                }
+
             }
         });
 
