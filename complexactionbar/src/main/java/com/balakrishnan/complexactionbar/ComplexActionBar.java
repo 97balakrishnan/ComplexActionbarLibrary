@@ -72,7 +72,7 @@ public class ComplexActionBar extends FrameLayout {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
 
-                v.animate().translationY(bottom).setDuration(500).start();
+                //v.animate().translationY(bottom).setDuration(500).start();
                 if(v.getHeight()!=0)
                 {
                     if(openHeight==0)
