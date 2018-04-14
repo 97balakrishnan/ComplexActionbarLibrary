@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.my_fragment,new FirstFragment());
         ft.commit();
 
-        String[] s={"first","second","third","fourth","fifth"};
+        String[] s={"first","second","third"};
         c.setMenuList(s);
         c.getMenu().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,6 +56,19 @@ public class MainActivity extends AppCompatActivity {
                         android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.my_fragment,new FirstFragment());
                         ft.commit();
+                        break;
+                    case 1:
+                        android.support.v4.app.FragmentTransaction ft1=getSupportFragmentManager().beginTransaction();
+                        ft1.replace(R.id.my_fragment,new SecondFragment());
+                        ft1.commit();
+                        break;
+                    case 2:
+                        android.support.v4.app.FragmentTransaction ft2=getSupportFragmentManager().beginTransaction();
+                        ft2.replace(R.id.my_fragment,new ThirdFragment());
+                        ft2.commit();
+                        break;
+
+
                 }
 
             }

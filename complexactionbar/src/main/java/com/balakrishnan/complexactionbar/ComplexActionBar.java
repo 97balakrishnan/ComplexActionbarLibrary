@@ -67,12 +67,11 @@ public class ComplexActionBar extends FrameLayout {
         final ListView lv = activity.findViewById(R.id.options_list);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
         lv.addOnLayoutChangeListener(new OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
 
-                //v.animate().translationY(bottom).setDuration(500).start();
+
                 if(v.getHeight()!=0)
                 {
                     if(openHeight==0)
@@ -82,6 +81,7 @@ public class ComplexActionBar extends FrameLayout {
                     openHeight=v.getHeight();
                 }
             }
+
         });
         for(int i=0;i<arrayList.size();i++)
         {

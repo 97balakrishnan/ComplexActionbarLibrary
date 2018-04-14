@@ -2,7 +2,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
 
     <TextView
@@ -11,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="hello from fragment"/>
+        android:text="hello from fragment 2"/>
 
     <TextView
         android:id="@+id/text1"
@@ -19,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
-        android:text="hello from fragment"/>
+        android:text="hello from fragment 2"/>
 
     <TextView
         android:id="@+id/text2"
@@ -27,5 +26,5 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300dp"
-        android:text="hello from fragment"/>
+        android:text="hello from fragment 2"/>
 </RelativeLayout>
