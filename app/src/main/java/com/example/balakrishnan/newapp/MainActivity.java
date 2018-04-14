@@ -32,45 +32,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        getSupportActionBar().hide();
-
-
-
         final ComplexActionBar c = new ComplexActionBar(getApplicationContext());
-        c.setOnItemClickListener(new ComplexActionBar.OnItemClickListener() {
+        c.setActivity(this);
+        String[] s={"first","second","third","fourth","fifth"};
+        c.setMenuList(s);
+        c.getMenu().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClicked(int position) {
-                Toast.makeText(getApplicationContext(),"hello",Toast.LENGTH_LONG).show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getApplicationContext(),"Item "+position+" was clicked",Toast.LENGTH_LONG).show();
             }
         });
 
-       // c.setProperties(this,R.id.inclusion_layout,R.menu.menu_main);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        System.out.println("asdfkljasd");
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

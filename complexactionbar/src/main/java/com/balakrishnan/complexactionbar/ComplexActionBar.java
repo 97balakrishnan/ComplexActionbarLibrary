@@ -1,58 +1,34 @@
 package com.balakrishnan.complexactionbar;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ActionMode;
-import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SpinnerAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class ComplexActionBar extends FrameLayout {
 
-    private ArrayList<String> arrayList=new ArrayList<>();
-    private OnItemClickListener onItemClickListener;
+    private List<String> arrayList=new ArrayList<>();
+    private List<String> menuList= new ArrayList<>();
     private boolean isOptionsOpen=false;
 
-    public OnItemClickListener getOnMenuItemClickListener() {
-        return onItemClickListener;
-    }
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
 
-    public interface OnItemClickListener{
-
-        public void onItemClicked(int position);
-
-    }
-    protected void itemClicked(int position){
-        if(onItemClickListener!=null){
-            onItemClickListener.onItemClicked(position);
-        }
+    Activity activity;
+    public void setActivity(Activity activity)
+    {
+        this.activity=activity;
     }
     public ComplexActionBar(@NonNull Context context) {
         this(context,null);
@@ -61,32 +37,47 @@ public class ComplexActionBar extends FrameLayout {
     public ComplexActionBar(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context,attrs,0);
     }
-    public ComplexActionBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        final Context cont=context;
-        addView(LayoutInflater.from(context).inflate(R.layout.appbar,this,false));
+    public void setMenuList(ArrayList<String> arrayList)
+    {
+        this.arrayList=arrayList;
+        setMenu();
 
-        
-        final ArrayAdapter adapter = new ArrayAdapter<String>(context,R.layout.list_view,arrayList);
-        ListView lv = (ListView)findViewById(R.id.options_list);
+    }
+    public void setMenuList(String[] strings)
+    {
+        for(int i=0;i<strings.length;i++)
+            arrayList.add(strings[i]);
+
+        System.out.println("array list is set size:"+arrayList.size());
+        setMenu();
+        //menuList=arrayList;
+        //System.out.println("MenuList oda size:"+menuList.size());
+        //adapter.notifyDataSetChanged();
+    }
+    private void setMenu()
+    {
+        System.out.println("This function is called");
+        adapter = new ArrayAdapter<String>(context,R.layout.list_view,menuList);
+        final ListView lv = activity.findViewById(R.id.options_list);
         lv.setAdapter(adapter);
 
-        ImageView img = findViewById(R.id.toolbar_logo);
+        ImageView img = activity.findViewById(R.id.toolbar_logo);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!isOptionsOpen) {
-                    arrayList.add("1");
-                    arrayList.add("2");
-                    arrayList.add("3");
                     isOptionsOpen=true;
+                    for(int i=0;i<arrayList.size();i++)
+                    {
+                        System.out.println(arrayList.get(i));
+                        menuList.add(arrayList.get(i));
+                    }
                     adapter.notifyDataSetChanged();
-                    System.out.println("heelllo");
                 }
                 else
                 {
                     isOptionsOpen=false;
-                    arrayList.clear();
+                    menuList.clear();
                     adapter.notifyDataSetChanged();
 
                 }
@@ -94,21 +85,18 @@ public class ComplexActionBar extends FrameLayout {
         });
 
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(getContext(),position+"",Toast.LENGTH_SHORT).show();
-                itemClicked(position);
-            }
-        });
+    }
+    Context context;
+    ArrayAdapter adapter;
+    public ComplexActionBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.context=context;
+        addView(LayoutInflater.from(context).inflate(R.layout.appbar,this,false));
+
+
+
 
     }
-
-    public void inflateMenu(ArrayList<String> menuList)
-    {
-
-    }
-
 
     @Override
     public void setForegroundGravity(int foregroundGravity) {
@@ -168,5 +156,10 @@ public class ComplexActionBar extends FrameLayout {
     @Override
     public CharSequence getAccessibilityClassName() {
         return super.getAccessibilityClassName();
+    }
+    public ListView getMenu()
+    {
+        ListView l =activity.findViewById(R.id.options_list);
+        return l;
     }
 }
