@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,13 +8,15 @@
     tools:context=".MainActivity"
     android:id="@+id/main">
 
-
-
     <com.balakrishnan.complexactionbar.ComplexActionBar
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/inclusion_layout"
-       />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:translationZ="10dp"
+        />
+
+
     <include layout="@layout/content_main"
         android:id="@+id/content_main"/>
 

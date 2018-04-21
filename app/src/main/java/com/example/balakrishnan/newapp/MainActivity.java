@@ -2,6 +2,7 @@ package com.example.balakrishnan.newapp;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -38,13 +39,18 @@ public class MainActivity extends AppCompatActivity {
         final ComplexActionBar c = new ComplexActionBar(getApplicationContext());
         c.setActivity(this);
         c.setFragment(R.id.content_main);
+        //c.setActionbarColor(Color.RED);
+        //c.setTitleColor(Color.BLUE);
+        c.setMenuColor(Color.BLUE);
 
+        c.setTitle("Hello");
         android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.my_fragment,new FirstFragment());
         ft.commit();
 
         String[] s={"first","second","third"};
         c.setMenuList(s);
+        c.setMenuTextColor(Color.RED);
         c.getMenu().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
